@@ -1,10 +1,12 @@
-const flattenConstructor = () => {
-  return (dict: Option)=> Object.values(dict);
+const flattenConstructor = <T>() => {
+  return (dict: Option<T>)=> Object.values(dict);
+  // для возвращаемого
+  // generic
+  // типизация словарем
 };
 
-interface Option {
-  a: number | string;
-  b: number | string;
+interface Option<T> {
+ [key: string]: T;
 }
 
 const flat1 = flattenConstructor();
