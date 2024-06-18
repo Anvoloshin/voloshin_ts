@@ -1,4 +1,4 @@
-enum Role {
+enum Roles {
   User = 'user',
   Moderator = 'moderator',
   Admin = 'admin'
@@ -7,24 +7,24 @@ enum Role {
 interface Person {
   id: number,
   login: string,
-  role: string
+  role: Roles
 }
 
 const user = {
   id: 1,
   login: 'test',
-  role: Role.Admin,
+  role: Roles.User,
 }
 
-const checkPermissionsDecorator = (roles: Role) : ReturnTypes => {
+const checkPermissionsDecorator = (roles: Roles[]) : ReturnTypes => {
   return (user: Person) : boolean => {
-      return roles.includes(user.role);
+    return roles.includes(user.role);
   }
 }
 
 type ReturnTypes = (user: Person) => boolean;
 
-const checkPermission = checkPermissionsDecorator(Role.Admin);
+const checkPermission = checkPermissionsDecorator([Roles.Admin]);
 const hasPermissions = checkPermission(user);
 
 console.log(hasPermissions);
