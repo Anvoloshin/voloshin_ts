@@ -1,54 +1,55 @@
-// Tags: Union, Enum, Narrowing
-// Виды пасты - spaghetti/penne/macaroni
-
-
 enum PastaTypes {
-  first = 'spaghetti',
-  second = 'penne',
-  third = 'macaroni'
+  First = 'spaghetti',
+  Second = 'penne',
+  Third = 'macaroni'
 }
 
 class Pizza {
-  hasPepperoni;
-  hasSauce;
-  hasCheese;
-  bakeTime = 30;
-  constructor(hasPepperoni, hasSauce, hasCheese) {
+  hasPepperoni: boolean;
+  hasSauce: boolean;
+  hasCheese: boolean;
+  bakeTime: number = 30;
+  constructor(hasPepperoni: boolean, hasSauce: boolean, hasCheese: boolean) {
       this.hasPepperoni = hasPepperoni;
       this.hasSauce = hasSauce;
       this.hasCheese = hasCheese;
   }
-  bake() {
+
+  bake(): void {
       setTimeout(console.log, this.bakeTime, 'Enjoy your pizza!');
   }
 }
+
 class Pasta {
-  pastaType;
-  hasSauce;
-  hasCheese;
+  pastaType: PastaTypes;
+  hasSauce: boolean;
+  hasCheese: boolean;
   cookTime: number = 30;
-  constructor(pastaType, hasSauce, hasCheese) {
+  constructor(pastaType: PastaTypes, hasSauce: boolean, hasCheese: boolean) {
       this.pastaType = pastaType;
       this.hasCheese = hasCheese;
       this.hasSauce = hasSauce;
   }
-  cook() {
+
+  cook(): void {
       setTimeout(console.log, this.cookTime, 'Enjoy your pasta!');
   }
 }
+
 class Kitchen {
-  makeDish(dish) {
+  makeDish(dish: Pizza | Pasta) {
       if (dish instanceof Pasta) {
           dish.cook();
       } else if (dish instanceof Pizza) {
           dish.bake();
       }
-      throw new Error('Unknown dish');
+      else throw new Error('Unknown dish');
   }
 }
+
 const kitchen = new Kitchen();
 const pizza = new Pizza(true, true, false);
-const pasta = new Pasta('spaghetti', true, true);
+const pasta = new Pasta(PastaTypes.First, true, true);
 
 kitchen.makeDish(pasta);
 kitchen.makeDish(pizza);
